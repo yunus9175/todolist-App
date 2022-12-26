@@ -1,0 +1,108 @@
+{
+    // Prevent ESLint from looking for other configurations in parent directories
+    "root": true,
+    // Enable the use of global variables
+    "env": {
+        // From browser environment
+        "browser": true,
+        // From every ECMAScript release until ES2021 (because not all ES2022 features are supported on modern browsers)
+        "es2021": true
+    },
+    // Extend existing configurations
+    // Order matters, each extension overrides the previous one
+    "extends": [
+        // Airbnb config uses import, jsx-a11y and react plugins
+        "airbnb",
+        // Airbnb hooks config uses react-hooks plugin
+        "airbnb/hooks",
+        // Airbnb typescript config uses @typescript-eslint plugin and overrides airbnb config
+        "airbnb-typescript",
+        // Enable the use of the new JSX transform from React 17
+        "plugin:react/jsx-runtime"
+    ],
+    "overrides": [
+        {
+            // Run testing rules only against test files
+            "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+            "extends": ["plugin:testing-library/react"],
+            "rules": {
+                // Allow nesting describe/test callbacks in Jest tests
+                "max-nested-callbacks": "off",
+
+                // Allow magic numbers in tests
+                "no-magic-numbers": "off"
+            }
+        }
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        // Link the typescript parser to the local typescript configuration
+        "project": "./tsconfig.json",
+        // Enable the use of syntax from latest ECMAScript releases
+        "ecmaVersion": "latest",
+        // Enable the use of syntax from ECMAScript modules
+        "sourceType": "module"
+    },
+    "ignorePatterns": ["vite.config.ts", "src/test/setup.ts"],
+    "rules": {
+        // Enforce consistent use of double quotes instead of single quotes to define strings
+        // IMHO having to escape single quotes is more annoying than escaping double quotes because
+        // single quotes are mandatory for contractions though double quotes never are mandatory
+        // See http://stackoverflow.com/a/18041188/1480391
+        // https://typescript-eslint.io/rules/quotes/
+        "quotes": "off",
+        "@typescript-eslint/quotes": [
+            "error",
+            "double",
+            {
+                "avoidEscape": true
+            }
+        ],
+
+        // Enforce a convention in module import order
+        // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/order.md
+        "import/order": [
+            "error",
+            {
+                "newlines-between": "never",
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal",
+                    "parent",
+                    "sibling",
+                    "index"
+                ],
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": false
+                }
+            }
+        ],
+
+        // Enforce the maximum depth callbacks that can be nested
+        // https://eslint.org/docs/latest/rules/max-nested-callbacks
+        "max-nested-callbacks" : ["error", 4],
+
+        // Enforce the use of explicit constants instead of meaningless numbers
+        // https://eslint.org/docs/rules/no-magic-numbers
+        "no-magic-numbers": [
+            "error",
+            {
+                "ignore": [
+                    -1,
+                    0,
+                    1,
+                    2,
+                    3,
+                    10,
+                    100,
+                    1000
+                ],
+                "ignoreArrayIndexes": true,
+                "enforceConst": true,
+                "detectObjects": false
+            }
+        ]
+    }
+}

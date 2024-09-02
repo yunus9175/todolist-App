@@ -20,20 +20,20 @@
         // Enable the use of the new JSX transform from React 17
         "plugin:react/jsx-runtime"
     ],
-    "overrides": [
-        {
-            // Run testing rules only against test files
-            "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
-            "extends": ["plugin:testing-library/react"],
-            "rules": {
-                // Allow nesting describe/test callbacks in Jest tests
-                "max-nested-callbacks": "off",
+    // "overrides": [
+    //     {
+    //         // Run testing rules only against test files
+    //         "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+    //         "extends": ["plugin:testing-library/react"],
+    //         "rules": {
+    //             // Allow nesting describe/test callbacks in Jest tests
+    //             "max-nested-callbacks": "off",
 
-                // Allow magic numbers in tests
-                "no-magic-numbers": "off"
-            }
-        }
-    ],
+    //             // Allow magic numbers in tests
+    //             "no-magic-numbers": "off"
+    //         }
+    //     }
+    // ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         // Link the typescript parser to the local typescript configuration
